@@ -116,6 +116,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total,records);//用total,records 从page中获取数据，再封装成pageresult对象，
     }
 
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     * @param
+     * @return
+     */
+    public void startOrStop(Integer status, Long id){
+        //uodate emloyee set status = ? where id = ? //希望的sql实现语句
+        //创建employee对象的传统写法
+//        Employee employee = new Employee();
+//        employee.setStatus(status);
+//        employee.setId(id);
+
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .updateTime(LocalDateTime.now())
+                .build();
+
+        employeeMapper.update(employee);
+
+    }
+
+
 
 
 }
