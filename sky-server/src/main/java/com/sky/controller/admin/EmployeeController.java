@@ -114,11 +114,37 @@ public class EmployeeController {
      * @param id
      * @return
      */
-    @PostMapping("/status/{status}")
+    @PostMapping("/status/{status}")//{}表示路径参数
     @ApiOperation("启用禁用员工账号")
-    public Result startOrStop(@PathVariable Integer status,Long id) {
-        log.info("启用禁用员工账号: {},{}", status, id);
+    public Result startOrStop(@PathVariable Integer status,Long id) {//注解@PathVariable是路径参数的注解
+        log.info("启用禁用员工账号: {},{}", status, id);// 此处status为Path参数,而id为Query参数 * 即： status/{status}?id=xxx
         employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+
+
+    /**
+     * 据id查询员工信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工信息")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 编译员工信息
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("编译员工信息")
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编译员工信息: {}", employeeDTO);
+        employeeService.update(employeeDTO);
         return Result.success();
     }
 

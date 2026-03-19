@@ -139,8 +139,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.update(employee);
 
     }
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    public Employee getById(Long id){
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("****");
+        return employee;
+    }
 
+    /**
+     * 编译员工信息
+     * @param employeeDTO
+     * @return
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);//拷贝dto数据
 
-
-
+        employee.setUpdateTime(LocalDateTime.now());//获取修改时间
+        employee.setUpdateUser(BaseContext.getCurrentId());//BaseContext.getCurrentId()是JWT处拦截获取id的，直接调用
+        employeeMapper.update(employee);//调用前面禁用员工时写的复用动态SQLupdate方法
+    }
 }
