@@ -88,12 +88,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
         //设置当前记录的创建时间和修改时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        //employee.setCreateTime(LocalDateTime.now());
+        //employee.setUpdateTime(LocalDateTime.now());
 
         //设置当前记录创建人id和修改人id
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());//取出存储在base中的员工id
+        //employee.setCreateUser(BaseContext.getCurrentId());
+        //employee.setUpdateUser(BaseContext.getCurrentId());//取出存储在base中的员工id
+
+        //上面四行已被切面取代
 
         //插入员工数据
         employeeMapper.insert(employee);
@@ -160,8 +162,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);//拷贝dto数据
 
-        employee.setUpdateTime(LocalDateTime.now());//获取修改时间
-        employee.setUpdateUser(BaseContext.getCurrentId());//BaseContext.getCurrentId()是JWT处拦截获取id的，直接调用
+        //employee.setUpdateTime(LocalDateTime.now());//获取修改时间
+        //employee.setUpdateUser(BaseContext.getCurrentId());//BaseContext.getCurrentId()是JWT处拦截获取id的，直接调用
         employeeMapper.update(employee);//调用前面禁用员工时写的复用动态SQLupdate方法
     }
 }
