@@ -16,4 +16,4 @@ import java.lang.annotation.Target;
 public @interface AutoFill {
     //数据库操作类型：UPDATA INSERT   //下面value的属性只在up和insert操作中用到
     OperationType value();
-}
+}//
